@@ -1,0 +1,237 @@
+nohup: ignoring input
+
+################################################################
+[1m[32mInstall script for stable-diffusion + Web UI
+[1m[34mTested on Debian 11 (Bullseye), Fedora 34+ and openSUSE Leap 15.4 or newer.[0m
+################################################################
+
+################################################################
+Running on [1m[32mo_takai[0m user
+################################################################
+
+################################################################
+Repo already cloned, using it as install directory
+################################################################
+
+################################################################
+Create and activate python venv
+################################################################
+Requirement already satisfied: pip in ./venv/lib/python3.10/site-packages (22.0.2)
+Collecting pip
+  Using cached pip-25.0.1-py3-none-any.whl (1.8 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 22.0.2
+    Uninstalling pip-22.0.2:
+      Successfully uninstalled pip-22.0.2
+Successfully installed pip-25.0.1
+
+################################################################
+Launching launch.py...
+################################################################
+glibc version is 2.35
+[1m[31mCannot locate TCMalloc. Do you have tcmalloc or google-perftool installed on your system? (improves CPU memory usage)[0m
+Python 3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0]
+Version: v1.10.1
+Commit hash: 82a973c04367123ae98bd9abdf80d9eda9b910e2
+Installing torch and torchvision
+Looking in indexes: https://pypi.org/simple, https://download.pytorch.org/whl/cu121
+Collecting torch==2.1.2
+  Downloading https://download.pytorch.org/whl/cu121/torch-2.1.2%2Bcu121-cp310-cp310-linux_x86_64.whl (2200.7 MB)
+ERROR: Could not install packages due to an OSError: [Errno 28] No space left on device
+
+     ━━━━━━━━━━━━━━━━━━━━━━━                  1.3/2.2 GB 26.0 MB/s eta 0:00:36
+WARNING: There was an error checking the latest version of pip.
+Traceback (most recent call last):
+  File "/home/o_takai/stable-diffusion-webui/launch.py", line 48, in <module>
+    main()
+  File "/home/o_takai/stable-diffusion-webui/launch.py", line 39, in main
+    prepare_environment()
+  File "/home/o_takai/stable-diffusion-webui/modules/launch_utils.py", line 381, in prepare_environment
+    run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
+  File "/home/o_takai/stable-diffusion-webui/modules/launch_utils.py", line 116, in run
+    raise RuntimeError("\n".join(error_bits))
+RuntimeError: Couldn't install torch.
+Command: "/home/o_takai/stable-diffusion-webui/venv/bin/python" -m pip install torch==2.1.2 torchvision==0.16.2 --extra-index-url https://download.pytorch.org/whl/cu121
+Error code: 1
+WARNING:root:Sampler Scheduler autocorrection: "Euler" -> "Euler", "None" -> "Automatic"
+  0%|          | 0/5 [00:00<?, ?it/s]  0%|          | 0/5 [00:00<?, ?it/s]
+*** API error: POST: http://localhost:7860/sdapi/v1/txt2img {'error': 'NotImplementedError', 'detail': '', 'body': '', 'errors': "No operator found for `memory_efficient_attention_forward` with inputs:\n     query       : shape=(2, 1024, 8, 40) (torch.float16)\n     key         : shape=(2, 1024, 8, 40) (torch.float16)\n     value       : shape=(2, 1024, 8, 40) (torch.float16)\n     attn_bias   : <class 'NoneType'>\n     p           : 0.0\n`decoderF` is not supported because:\n    xFormers wasn't build with CUDA support\n    attn_bias type is <class 'NoneType'>\n    operator wasn't built - see `python -m xformers.info` for more info\n`flshattF@0.0.0` is not supported because:\n    xFormers wasn't build with CUDA support\n    requires device with capability > (8, 0) but your GPU has capability (7, 5) (too old)\n    operator wasn't built - see `python -m xformers.info` for more info\n`tritonflashattF` is not supported because:\n    xFormers wasn't build with CUDA support\n    requires device with capability > (8, 0) but your GPU has capability (7, 5) (too old)\n    operator wasn't built - see `python -m xformers.info` for more info\n    triton is not available\n    requires GPU with sm80 minimum compute capacity, e.g., A100/H100/L4\n`cutlassF` is not supported because:\n    xFormers wasn't build with CUDA support\n    operator wasn't built - see `python -m xformers.info` for more info\n`smallkF` is not supported because:\n    max(query.shape[-1] != value.shape[-1]) > 32\n    xFormers wasn't build with CUDA support\n    dtype=torch.float16 (supported: {torch.float32})\n    operator wasn't built - see `python -m xformers.info` for more info\n    unsupported embed per head: 40"}
+    Traceback (most recent call last):
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/anyio/streams/memory.py", line 98, in receive
+        return self.receive_nowait()
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/anyio/streams/memory.py", line 93, in receive_nowait
+        raise WouldBlock
+    anyio.WouldBlock
+
+    During handling of the above exception, another exception occurred:
+
+    Traceback (most recent call last):
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/base.py", line 78, in call_next
+        message = await recv_stream.receive()
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/anyio/streams/memory.py", line 118, in receive
+        raise EndOfStream
+    anyio.EndOfStream
+
+    During handling of the above exception, another exception occurred:
+
+    Traceback (most recent call last):
+      File "/home/o_takai/stable-diffusion-webui/modules/api/api.py", line 186, in exception_handling
+        return await call_next(request)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/base.py", line 84, in call_next
+        raise app_exc
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/base.py", line 70, in coro
+        await self.app(scope, receive_or_disconnect, send_no_error)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/base.py", line 108, in __call__
+        response = await self.dispatch_func(request, call_next)
+      File "/home/o_takai/stable-diffusion-webui/modules/api/api.py", line 150, in log_and_time
+        res: Response = await call_next(req)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/base.py", line 84, in call_next
+        raise app_exc
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/base.py", line 70, in coro
+        await self.app(scope, receive_or_disconnect, send_no_error)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/cors.py", line 84, in __call__
+        await self.app(scope, receive, send)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/gzip.py", line 26, in __call__
+        await self.app(scope, receive, send)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+        raise exc
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+        await self.app(scope, receive, sender)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+        raise e
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+        await self.app(scope, receive, send)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/routing.py", line 718, in __call__
+        await route.handle(scope, receive, send)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/routing.py", line 276, in handle
+        await self.app(scope, receive, send)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/routing.py", line 66, in app
+        response = await func(request)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/fastapi/routing.py", line 237, in app
+        raw_response = await run_endpoint_function(
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/fastapi/routing.py", line 165, in run_endpoint_function
+        return await run_in_threadpool(dependant.call, **values)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/starlette/concurrency.py", line 41, in run_in_threadpool
+        return await anyio.to_thread.run_sync(func, *args)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/anyio/to_thread.py", line 33, in run_sync
+        return await get_asynclib().run_sync_in_worker_thread(
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+        return await future
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+        result = context.run(func, *args)
+      File "/home/o_takai/stable-diffusion-webui/modules/api/api.py", line 482, in text2imgapi
+        processed = process_images(p)
+      File "/home/o_takai/stable-diffusion-webui/modules/processing.py", line 847, in process_images
+        res = process_images_inner(p)
+      File "/home/o_takai/stable-diffusion-webui/modules/processing.py", line 988, in process_images_inner
+        samples_ddim = p.sample(conditioning=p.c, unconditional_conditioning=p.uc, seeds=p.seeds, subseeds=p.subseeds, subseed_strength=p.subseed_strength, prompts=p.prompts)
+      File "/home/o_takai/stable-diffusion-webui/modules/processing.py", line 1346, in sample
+        samples = self.sampler.sample(self, x, conditioning, unconditional_conditioning, image_conditioning=self.txt2img_image_conditioning(x))
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_samplers_kdiffusion.py", line 230, in sample
+        samples = self.launch_sampling(steps, lambda: self.func(self.model_wrap_cfg, x, extra_args=self.sampler_extra_args, disable=False, callback=self.callback_state, **extra_params_kwargs))
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_samplers_common.py", line 272, in launch_sampling
+        return func()
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_samplers_kdiffusion.py", line 230, in <lambda>
+        samples = self.launch_sampling(steps, lambda: self.func(self.model_wrap_cfg, x, extra_args=self.sampler_extra_args, disable=False, callback=self.callback_state, **extra_params_kwargs))
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+        return func(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/k-diffusion/k_diffusion/sampling.py", line 128, in sample_euler
+        denoised = model(x, sigma_hat * s_in, **extra_args)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+        return forward_call(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_samplers_cfg_denoiser.py", line 249, in forward
+        x_out = self.inner_model(x_in, sigma_in, cond=make_condition_dict(cond_in, image_cond_in))
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+        return forward_call(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/k-diffusion/k_diffusion/external.py", line 112, in forward
+        eps = self.get_eps(input * c_in, self.sigma_to_t(sigma), **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/k-diffusion/k_diffusion/external.py", line 138, in get_eps
+        return self.inner_model.apply_model(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_utils.py", line 22, in <lambda>
+        setattr(resolved_obj, func_path[-1], lambda *args, **kwargs: self(*args, **kwargs))
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_utils.py", line 34, in __call__
+        return self.__sub_func(self.__orig_func, *args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_unet.py", line 50, in apply_model
+        result = orig_func(self, x_noisy.to(devices.dtype_unet), t.to(devices.dtype_unet), cond, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_utils.py", line 22, in <lambda>
+        setattr(resolved_obj, func_path[-1], lambda *args, **kwargs: self(*args, **kwargs))
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_utils.py", line 36, in __call__
+        return self.__orig_func(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/stable-diffusion-stability-ai/ldm/models/diffusion/ddpm.py", line 858, in apply_model
+        x_recon = self.model(x_noisy, t, **cond)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+        return forward_call(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/stable-diffusion-stability-ai/ldm/models/diffusion/ddpm.py", line 1335, in forward
+        out = self.diffusion_model(x, t, context=cc)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+        return forward_call(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_unet.py", line 91, in UNetModel_forward
+        return original_forward(self, x, timesteps, context, *args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/stable-diffusion-stability-ai/ldm/modules/diffusionmodules/openaimodel.py", line 797, in forward
+        h = module(h, emb, context)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+        return forward_call(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/stable-diffusion-stability-ai/ldm/modules/diffusionmodules/openaimodel.py", line 84, in forward
+        x = layer(x, context)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+        return forward_call(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_utils.py", line 22, in <lambda>
+        setattr(resolved_obj, func_path[-1], lambda *args, **kwargs: self(*args, **kwargs))
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_utils.py", line 34, in __call__
+        return self.__sub_func(self.__orig_func, *args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_unet.py", line 96, in spatial_transformer_forward
+        x = block(x, context=context[i])
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+        return forward_call(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/stable-diffusion-stability-ai/ldm/modules/attention.py", line 269, in forward
+        return checkpoint(self._forward, (x, context), self.parameters(), self.checkpoint)
+      File "/home/o_takai/stable-diffusion-webui/repositories/stable-diffusion-stability-ai/ldm/modules/diffusionmodules/util.py", line 123, in checkpoint
+        return func(*inputs)
+      File "/home/o_takai/stable-diffusion-webui/repositories/stable-diffusion-stability-ai/ldm/modules/attention.py", line 272, in _forward
+        x = self.attn1(self.norm1(x), context=context if self.disable_self_attn else None) + x
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+        return forward_call(*args, **kwargs)
+      File "/home/o_takai/stable-diffusion-webui/modules/sd_hijack_optimizations.py", line 497, in xformers_attention_forward
+        out = xformers.ops.memory_efficient_attention(q, k, v, attn_bias=None, op=get_xformers_flash_attention_op(q, k, v))
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/xformers/ops/fmha/__init__.py", line 223, in memory_efficient_attention
+        return _memory_efficient_attention(
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/xformers/ops/fmha/__init__.py", line 321, in _memory_efficient_attention
+        return _memory_efficient_attention_forward(
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/xformers/ops/fmha/__init__.py", line 337, in _memory_efficient_attention_forward
+        op = _dispatch_fw(inp, False)
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/xformers/ops/fmha/dispatch.py", line 120, in _dispatch_fw
+        return _run_priority_list(
+      File "/home/o_takai/stable-diffusion-api/venv/lib/python3.10/site-packages/xformers/ops/fmha/dispatch.py", line 63, in _run_priority_list
+        raise NotImplementedError(msg)
+    NotImplementedError: No operator found for `memory_efficient_attention_forward` with inputs:
+         query       : shape=(2, 1024, 8, 40) (torch.float16)
+         key         : shape=(2, 1024, 8, 40) (torch.float16)
+         value       : shape=(2, 1024, 8, 40) (torch.float16)
+         attn_bias   : <class 'NoneType'>
+         p           : 0.0
+    `decoderF` is not supported because:
+        xFormers wasn't build with CUDA support
+        attn_bias type is <class 'NoneType'>
+        operator wasn't built - see `python -m xformers.info` for more info
+    `flshattF@0.0.0` is not supported because:
+        xFormers wasn't build with CUDA support
+        requires device with capability > (8, 0) but your GPU has capability (7, 5) (too old)
+        operator wasn't built - see `python -m xformers.info` for more info
+    `tritonflashattF` is not supported because:
+        xFormers wasn't build with CUDA support
+        requires device with capability > (8, 0) but your GPU has capability (7, 5) (too old)
+        operator wasn't built - see `python -m xformers.info` for more info
+        triton is not available
+        requires GPU with sm80 minimum compute capacity, e.g., A100/H100/L4
+    `cutlassF` is not supported because:
+        xFormers wasn't build with CUDA support
+        operator wasn't built - see `python -m xformers.info` for more info
+    `smallkF` is not supported because:
+        max(query.shape[-1] != value.shape[-1]) > 32
+        xFormers wasn't build with CUDA support
+        dtype=torch.float16 (supported: {torch.float32})
+        operator wasn't built - see `python -m xformers.info` for more info
+        unsupported embed per head: 40
+
+---
